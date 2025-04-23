@@ -2,7 +2,6 @@ import spacy
 import os
 import glob
 import gzip
-import pickle
 import random
 import collections
 import tensorflow as tf
@@ -11,6 +10,7 @@ import six
 import numbers
 import re
 from itertools import chain
+import fickling
 
 random.seed(200)
 
@@ -131,7 +131,7 @@ class BinWriter(object):
         num_articles = len(sets[set_name])
         for idx, f in enumerate(sets[set_name]):
           with gzip.open(f) as f_:
-            article_json = pickle.load(f_)
+            article_json = fickling.load(f_)
           tf_example = tf.train.Example()
   
           article_id = f.split('/')[-1].replace('.pkl.gz', '').encode('ascii', 'ignore')
