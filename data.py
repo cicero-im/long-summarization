@@ -15,11 +15,11 @@
 # limitations under the License.
 # ==============================================================================
 import codecs
+import secrets
 
 """This file contains code to read the train/eval/test data from file and process it, and read the vocab data from file and process it"""
 
 import glob
-import random
 import struct
 import csv
 from tensorflow.core.example import example_pb2
@@ -137,7 +137,7 @@ def example_generator(data_path, single_pass):
     if single_pass:
       filelist = sorted(filelist)
     else:
-      random.shuffle(filelist)
+      secrets.SystemRandom().shuffle(filelist)
     num_records = 0
     for f in filelist:
       num_files += 1

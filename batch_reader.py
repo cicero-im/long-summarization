@@ -16,12 +16,13 @@
 # ==============================================================================
 from itertools import chain
 import sys
+import secrets
+
 """This file contains code to process data into batches"""
 
 from six.moves import queue as Queue
 from six.moves import xrange
 import six
-from random import shuffle
 from threading import Thread
 import time
 import numpy as np
@@ -680,7 +681,7 @@ class Batcher(object):
                 for i in xrange(0, len(inputs), self._hps.batch_size):
                     batches.append(inputs[i:i + self._hps.batch_size])
                 if not self._single_pass:
-                    shuffle(batches)
+                    secrets.SystemRandom().shuffle(batches)
                 for b in batches:  # each b is a list of Example objects
                     self._batch_queue.put(Batch(b, self._hps, self._vocab))
 

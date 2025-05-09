@@ -1,13 +1,13 @@
 import struct
 import six
 import glob
-import random
 
 import tensorflow as tf
 from pathlib import Path
 import os
 import collections
 import re
+import secrets
 
 # To represent list of sections as string and retrieve it back
 SECTION_SEPARATOR = ' <SCTN/> '
@@ -89,7 +89,7 @@ class BinReader:
             if self.single_pass:
                 filelist = sorted(filelist)
             else:
-                random.shuffle(filelist)
+                secrets.SystemRandom().shuffle(filelist)
             for f in filelist:
                 num_files += 1
                 reader = open(f, 'rb')
@@ -290,8 +290,8 @@ def main(args):
           print('{} of {} will be added'.format(added, counter))
           print('done')
           break
-    random.seed(100)
-    random.shuffle(res)
+    secrets.SystemRandom().seed(100)
+    secrets.SystemRandom().shuffle(res)
     if args.limit_size > 0:
       write_to_bin(res[:args.limit_size], args.out_file)
     else:
