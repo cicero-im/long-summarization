@@ -141,16 +141,16 @@ def example_generator(data_path, single_pass):
     num_records = 0
     for f in filelist:
       num_files += 1
-      reader = open(f, 'rb')
-      while True:
-        len_bytes = reader.read(8)
-        if not len_bytes: break # finished reading this file
-        str_len = struct.unpack('q', len_bytes)[0]
-        example_str = struct.unpack('%ds' % str_len, reader.read(str_len))[0]
-        num_records += 1
-        if num_records % 1000 == 0:
-          print(('example_generator read {:d} records'.format(num_records)), end='\r', flush=True)
-        yield example_pb2.Example.FromString(example_str)
+      with open(f, 'rb') as reader:
+        while True:
+          len_bytes = reader.read(8)
+          if not len_bytes: break # finished reading this file
+          str_len = struct.unpack('q', len_bytes)[0]
+          example_str = struct.unpack('%ds' % str_len, reader.read(str_len))[0]
+          num_records += 1
+          if num_records % 1000 == 0:
+            print(('example_generator read {:d} records'.format(num_records)), end='\r', flush=True)
+          yield example_pb2.Example.FromString(example_str)
       if num_files % 1000 == 0:
         print(('example_generator read {:d} files'.format(num_files)), end='\r', flush=True)
     if single_pass:
