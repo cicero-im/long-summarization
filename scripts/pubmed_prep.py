@@ -13,6 +13,8 @@ import tqdm
 from joblib import Parallel, delayed
 import multiprocessing
 import spacy
+import defusedxml.ElementTree
+
 random.seed(10)
 
 SENTENCE_START = '<S>'
@@ -21,7 +23,7 @@ SENTENCE_END = '</S>'
 nlp = spacy.load('en', vectors=False, entity=False)
 
 def get_sections(path):
-    tree = ET.parse(path)
+    tree = defusedxml.ElementTree.parse(path)
     root = tree.getroot()
     secs = root.findall('.//sec')
     section_names = []

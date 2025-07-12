@@ -2,3 +2,4 @@ tensorflow-gpu==1.15.2
 pandas
 tabulate
 pyrouge
+defusedxml==0.7.1
