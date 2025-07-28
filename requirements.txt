@@ -2,3 +2,4 @@ tensorflow-gpu==1.15.2
 pandas
 tabulate
 pyrouge
+fickling>=0.1.3,~=0.1.0
