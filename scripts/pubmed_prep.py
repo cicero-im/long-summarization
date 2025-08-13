@@ -5,7 +5,6 @@ import sys
 import glob
 import json
 from collections import defaultdict
-import random
 import pickle
 import gzip
 import os
@@ -13,7 +12,9 @@ import tqdm
 from joblib import Parallel, delayed
 import multiprocessing
 import spacy
-random.seed(10)
+import secrets
+
+secrets.SystemRandom().seed(10)
 
 SENTENCE_START = '<S>'
 SENTENCE_END = '</S>'
