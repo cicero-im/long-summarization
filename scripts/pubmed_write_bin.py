@@ -3,7 +3,6 @@ import os
 import glob
 import gzip
 import pickle
-import random
 import collections
 import tensorflow as tf
 import struct
@@ -11,8 +10,9 @@ import six
 import numbers
 import re
 from itertools import chain
+import secrets
 
-random.seed(200)
+secrets.SystemRandom().seed(200)
 
 CHUNK_SIZE = 2000
 VOCAB_SIZE = 50000
@@ -104,7 +104,7 @@ class BinWriter(object):
     indir, outdir = self.in_dir, self.out_dir
     nlp = spacy.load('en', vectors=False, entity=False)
     paths = glob.glob(indir + '/*.pkl.gz')
-    random.shuffle(paths)
+    secrets.SystemRandom().shuffle(paths)
     total_files = len(paths)
     val_size = int(total_files * 0.04)
     test_size = 2000
